@@ -1,6 +1,6 @@
 <template>
 <div class="editor">
-    <DrapResize style="left:500px">
+    <DrapResize :x="200" :minw="150" :minh="100" :w="300" :h="200">
         <Header :header-name="input" @header-change="headerChange"></Header>
         <Body :details="detail" @detail-checked-changed="detailCheckedChanged"></Body>
     </DrapResize>
