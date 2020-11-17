@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 export default {
   name: "EditorHeader",
   props: {
@@ -44,6 +45,11 @@ export default {
     }
     this.timer = null;
   },
+  computed:{
+     debounceChange(){
+       return debounce(this.changeValue,300);
+     }
+  },
   watch: {
     isEdit(val) {
       if (val) {
@@ -53,6 +59,9 @@ export default {
         this.$emit("header-change", this.displayName);
       }
     },
+    input(val){
+      this.debounceChange(val);
+    }
   },
   methods: {
     onClick() {
@@ -77,6 +86,14 @@ export default {
     onBlur() {
       this.isEdit = false;
     },
+    commitValue:debounce(function(val){
+      console.log("防抖");
+      this.$emit("on-change",val);
+    },300),
+    changeValue(val){
+      console.log("属性防抖");
+      this.$emit("on-change",val);
+    }
   },
 };
 </script>

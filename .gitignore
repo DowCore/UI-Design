@@ -1,1 +1,2 @@
 *.lock
+/demo/resize/node_modules
