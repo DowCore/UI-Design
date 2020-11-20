@@ -111,6 +111,7 @@ export default {
   margin: 0 auto;
   color: #fff;
   height: 2rem;
+  cursor: pointer;
 }
 </style>
 <style>

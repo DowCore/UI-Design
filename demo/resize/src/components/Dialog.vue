@@ -5,16 +5,25 @@
       width="80%"
       :before-close="handleClose"
     >
-    <MultipleList :checked-id="['eere123','34333444']" :item-datas="itemData" @on-select="onSelect">
-    <template #firstIcon>
+    <MultipleList :is-expand-all="false" expand-ids="1233223" :checked-id="['eere123','34333444']" :item-datas="itemData" @on-select="onSelect">
+    <template #main-icon>
       <i class="el-icon-share" ></i>
+    </template>
+    <template slot-scope="mainData">
+     {{"123" +  mainData.mainData.name}}
+    </template>
+    <template #main-right>
+     {{'呵呵'}}
+    </template>
+    <template #sub-content>
+    {{'你是我的眼'}}
     </template>
     </MultipleList>
     </el-dialog>
   </div>
 </template>
 <script>
-import MultipleList from './MultipleList';
+import MultipleList from './ExpandableList';
 export default {
   name: "component-dialog-tree",
   model: {

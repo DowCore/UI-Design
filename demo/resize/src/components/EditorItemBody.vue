@@ -63,5 +63,6 @@ export default {
     margin: 0px 0px -1px -1px;
     text-align: left;
     padding-left: 0.5rem;
+    margin-left:1px;
 }
 </style>

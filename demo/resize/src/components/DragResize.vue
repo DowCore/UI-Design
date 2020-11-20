@@ -2,11 +2,9 @@
   <div
     class="vdr"
     :style="style"
-    :class="
-      `${active || isActive ? 'active' : 'inactive'} ${
-        contentClass ? contentClass : ''
-      }`
-    "
+    :class="`${active || isActive ? 'vdr-active' : 'vdr-inactive'} ${
+      contentClass ? contentClass : ''
+    }`"
     @mousedown="bodyDown($event)"
     @touchstart="bodyDown($event)"
     @touchend="up($event)"
@@ -65,7 +63,7 @@ export default {
     parentW: {
       type: Number,
       default: 0,
-      validator: function(val) {
+      validator: function (val) {
         return val >= 0;
       },
     },
@@ -73,56 +71,56 @@ export default {
     parentH: {
       type: Number,
       default: 0,
-      validator: function(val) {
+      validator: function (val) {
         return val >= 0;
       },
     },
     w: {
       type: Number,
       default: 100,
-      validator: function(val) {
+      validator: function (val) {
         return val > 0;
       },
     },
     h: {
       type: Number,
       default: 100,
-      validator: function(val) {
+      validator: function (val) {
         return val > 0;
       },
     },
     minw: {
       type: Number,
       default: 50,
-      validator: function(val) {
+      validator: function (val) {
         return val > 0;
       },
     },
     minh: {
       type: Number,
       default: 50,
-      validator: function(val) {
+      validator: function (val) {
         return val > 0;
       },
     },
     x: {
       type: Number,
       default: 0,
-      validator: function(val) {
+      validator: function (val) {
         return typeof val === "number";
       },
     },
     y: {
       type: Number,
       default: 0,
-      validator: function(val) {
+      validator: function (val) {
         return typeof val === "number";
       },
     },
     z: {
       type: [String, Number],
       default: "auto",
-      validator: function(val) {
+      validator: function (val) {
         let valid = typeof val === "string" ? val === "auto" : val >= 0;
         return valid;
       },
@@ -130,14 +128,14 @@ export default {
     //拖动图标
     sticks: {
       type: Array,
-      default: function() {
+      default: function () {
         return ["tl", "tm", "tr", "mr", "br", "bm", "bl", "ml"];
       },
     },
     axis: {
       type: String,
       default: "both",
-      validator: function(val) {
+      validator: function (val) {
         return ["x", "y", "both", "none"].indexOf(val) !== -1;
       },
     },
@@ -149,7 +147,7 @@ export default {
     },
   },
 
-  data: function() {
+  data: function () {
     return {
       active: this.isActive,
       rawWidth: this.w,
@@ -171,7 +169,7 @@ export default {
     };
   },
 
-  created: function() {
+  created: function () {
     this.stickDrag = false;
     this.stickAxis = null;
     this.stickStartPos = {
@@ -196,7 +194,7 @@ export default {
     this.currentStick = [];
   },
 
-  mounted: function() {
+  mounted: function () {
     this.parentElement = this.$el.parentNode;
     this.parentWidth = this.parentW
       ? this.parentW
@@ -220,7 +218,7 @@ export default {
     document.documentElement.addEventListener("touchstart", this.up, true);
   },
 
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     document.documentElement.removeEventListener("mousemove", this.move);
     document.documentElement.removeEventListener("mouseup", this.up);
     document.documentElement.removeEventListener("mouseleave", this.up);
@@ -259,7 +257,7 @@ export default {
       }
     },
 
-    bodyDown: function(ev) {
+    bodyDown: function (ev) {
       let target = ev.target || ev.srcElement;
       console.log(target);
       if (ev.button && ev.button !== 0) {
@@ -322,7 +320,7 @@ export default {
       };
     },
 
-    stickDown: function(stick, ev) {
+    stickDown: function (stick, ev) {
       if (!this.active) {
         return;
       }
@@ -785,32 +783,60 @@ export default {
 </script>
 
 <style lang="scss">
+/* 注意css的书写顺序 */
+$vdr-outline: 1px dashed #2b85e4;
+$vdr-stick-background-color: #17233d;
+$vdr-stick-border: 1px solid #dcdee2;
+$vdr-stick-box-shadow: 0 0 2px#f8f8f9;
 .vdr {
+  /* Positioning*/
   position: absolute;
+  /* Box-model*/
   box-sizing: content-box;
-  .active:before {
-    content: "";
-    width: 100%;
-    height: 100%;
+  .resizable-context {
+    /* Box-model */
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    margin-left: 1px;
+    margin-top: 1px;
+    overflow: auto;
+  }
+  &-active:before {
+    /* Positioning*/
     position: absolute;
     top: 0;
     left: 0;
     box-sizing: content-box;
-    outline: 1px dashed #d6d6d6;
-    pointer-events: none;
-  }
-  .resizable-context {
-    overflow: auto;
+
+    /* Box-model */
     width: 100%;
     height: 100%;
+
+    /* Typography */
+    pointer-events: none;
+
+    /* Visual */
+    content: "";
+    outline: $vdr-outline;
+  }
+  &-inactive {
+    .vdr-stick {
+      display: none;
+    }
   }
   &-stick {
-    box-sizing: border-box;
+    /* Positioning*/
     position: absolute;
+    box-sizing: border-box;
+
+    /* Typography */
     font-size: 1px;
-    background: #ffffff;
-    border: 1px solid #6c6c6c;
-    box-shadow: 0 0 2px #bbb;
+
+    /* Visual */
+    background-color: $vdr-stick-background-color;
+    border: $vdr-stick-border;
+    box-shadow: $vdr-stick-box-shadow;
+
     &-tl,
     &-br {
       cursor: nwse-resize;
@@ -831,8 +857,5 @@ export default {
       cursor: ew-resize;
     }
   }
-}
-.inactive .vdr-stick {
-  display: none;
 }
 </style>
