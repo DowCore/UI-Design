@@ -1,12 +1,21 @@
 <template>
 <div class="editor">
-    <DrapResize :x="200" :y="50" :minw="150" :minh="100" :w="300" :h="200">
+  <el-row>
+  <el-col>
+  <VTabItem item="my.abs"></VTabItem>
+  </el-col>
+  </el-row>
+  <el-row>
+   <DrapResize :x="200" :y="50" :minw="150" :minh="100" :w="300" :h="200">
         <Header  :header-name="input" @on-change="onChange" @header-change="headerChange"></Header>
         <Body :details="detail" @detail-checked-changed="detailCheckedChanged"></Body>
-    </DrapResize>
-    <el-button type="primary" @click="openDialog">打开弹窗</el-button>
+    </DrapResize> 
+  </el-row>
+  <el-row>
+   <el-button type="primary" @click="openDialog">打开弹窗</el-button> 
     <Dialog v-model="isOpen"></Dialog>
-    <VTabItem>rrr</VTabItem>
+  </el-row>
+    
 </div>
 </template>
 
