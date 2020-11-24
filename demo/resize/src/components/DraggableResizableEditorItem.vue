@@ -2,7 +2,9 @@
 <div class="editor">
   <el-row>
   <el-col>
-  <VTabItem item="my.abs"></VTabItem>
+      <div class='my'>
+       <ColumnList></ColumnList>
+      </div>
   </el-col>
   </el-row>
   <el-row>
@@ -24,7 +26,8 @@ import Header from './EditorItemHeader';
 import Body from './EditorItemBody';
 import DrapResize from './DragResize';
 import Dialog from './Dialog';
-import VTabItem from './TabItem';
+import ColumnList from './ColumnList';
+import {mution} from './SharedModel';
 export default {
     name: "DraggableResizableEditorItem",
     props: {
@@ -38,7 +41,7 @@ export default {
         Body,
         DrapResize,
         Dialog,
-        VTabItem
+        ColumnList
     },
     data() {
         return {
@@ -46,6 +49,12 @@ export default {
             detail: ["Aaa", "Brereerrere", "Crererereerr"],
             isOpen:false
         };
+    },
+    mounted(){
+      mution.initTables(this.$store.state.tableList.tables);
+    },
+    computed:{
+
     },
     methods: {
         headerChange(val) {
@@ -63,3 +72,6 @@ export default {
     }
 };
 </script>
+<style lang="scss" scope>
+
+</style>

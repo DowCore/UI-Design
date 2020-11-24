@@ -77,7 +77,7 @@ export default {
       type: Array,
       validator: function (t) {
         return (
-          !t ||
+          !t || t.length==0 || 
           (Object.keys(t[0]).indexOf("id") > -1 &&
             Object.keys(t[0]).indexOf("name") > -1)
         );
