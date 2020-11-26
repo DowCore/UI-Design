@@ -12,7 +12,7 @@ export default {
   },
   computed: {
     selectTables() {
-      return store.SelectedTables;
+      return store.SelectedTablesWithRelation;
     },
   },
   methods: {
@@ -20,5 +20,15 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+ .fi:last-child{
+   .fi-icon-add{
+       display: block;
+   }
+ }
+ .fi:only-child{
+    .fi-icon-right{
+        display: none;
+    }
+ }
 </style>

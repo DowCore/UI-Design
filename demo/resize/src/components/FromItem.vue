@@ -2,9 +2,9 @@
   <div class="fi">
     <div v-show="!!name">
       <a class="fi-item fi-content" @click="onEdifitem">{{ name }}</a>
-      <a class="fi-content fi-alias fi-spacing-col-lg" @click="onEditAlias"
-        >{{ aliasValue }}</a
-      >
+      <a class="fi-content fi-alias fi-spacing-col-lg" @click="onEditAlias">{{
+        aliasValue
+      }}</a>
     </div>
     <div class="fi-icon-add fi-spacing-col-lg">
       <i class="el-icon-plus" @click="onAddRow"></i>
@@ -48,7 +48,7 @@
 </template>
 <script>
 import ExpandableList from "./ExpandableList";
-import { mution} from "./SharedModel";
+import { mution } from "./SharedModel";
 export default {
   props: {
     name: {
@@ -61,27 +61,29 @@ export default {
     alias: {
       type: String,
     },
+    vtype: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       aliasEditorVisible: false,
       input: "",
       isOpen: false,
-      isAdd:false,
-      itemData:[]
+      isAdd: false,
+      itemData: [],
     };
   },
   computed: {
-    aliasValue(){
-      return this.alias? `(${this.alias})`: '<别名>';
-    }
+    aliasValue() {
+      return this.alias ? `(${this.alias})` :(this.vtype==='table'? "<别名>" :'' );
+    },
   },
   components: {
     ExpandableList,
   },
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
     onEditAlias() {
       this.aliasEditorVisible = true;
@@ -92,7 +94,7 @@ export default {
       mution.UpdateTableAlias(this.uid, this.input);
     },
     onAliasInputBlur() {
-       this.aliasEditorVisible = false;
+      this.aliasEditorVisible = false;
     },
     onDelete() {
       mution.DeleteRow(this.uid);
@@ -100,15 +102,14 @@ export default {
     onEdifitem() {
       this.isOpen = true;
     },
-    onAddRow(){
-      this.isAdd=true;
+    onAddRow() {
+      this.isAdd = true;
       this.isOpen = true;
     },
     onSelect(val) {
-      if(this.isAdd){
-        mution.AddRowByNode(val.parenfid,val.node);
-      }
-      else{
+      if (this.isAdd) {
+        mution.AddRowByNode(val.parenfid, val.node);
+      } else {
         //
       }
       this.isOpen = false;

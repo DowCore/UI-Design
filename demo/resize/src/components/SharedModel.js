@@ -3,6 +3,7 @@ import _ from 'lodash';
 export const store = vue.observable({
   AllTables: [],
   SelectedTables: [],
+  SelectedTablesWithRelation:[],
   SelectedRows: "",
   Limit:{
     offset:'',
@@ -22,14 +23,19 @@ export const mution = {
       ...copy,
       alias: "",
       uid: `table_${_.uniqueId()}`,
+      vtype:"table"
     };
     //增加新的属性
     if(model.child){
         model.child.forEach(t=>{
-            t.isCkecked=false;
+            t.isChecked=false;
         });
     }
     store.SelectedTables.push(model);
+    if(store.SelectedTablesWithRelation.length){
+      store.SelectedTablesWithRelation.push({uid:`relation_${_.uniqueId()}`,vtype:"relation",name:','})
+    }
+    store.SelectedTablesWithRelation.push(model);
   },
   UpdateTableAlias(uid, newName) {
     let model = store.SelectedTables.find((t) => {
@@ -62,7 +68,7 @@ export const mution = {
     });
     if (table) {
       selectedRows.forEach((t) => {
-        t.isCkecked = true;
+        t.isChecked = true;
       });
     }
   },
@@ -71,6 +77,14 @@ export const mution = {
         return t.uid===parentUId;
     });
     if(!table) return;
+    if(table.child){
+       let child= table.child.find(t=>{
+         return t.id=== node.id;
+       });
+       if(child){
+         child.isChecked=true;
+       }
+    }
     let row = { ...node,parentId:parentUId, parentAlias:table.alias, parentName:table.name, uid:`Row_${_.uniqueId()}` };
     this.AddRow(row);
   },

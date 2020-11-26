@@ -7,7 +7,7 @@
         @change-alias="onChangedAlias"
       ></ItemHeader>
       <ItemBody
-        :details="recolumns"
+        :details="columns"
         @checked-changed="onCheckedChanged"
       ></ItemBody>
     </DragResize>
@@ -59,9 +59,7 @@ export default {
     ItemBody,
   },
   computed: {
-    recolumns() {
-      return this.columns;
-    },
+  
   },
   methods: {
     onCheckedChanged(isCheck, node) {
