@@ -1,17 +1,24 @@
 const state = {
   tables: [{
-     name:"User.",
+     name:"User",
      id:"user",
      child:[
-         {id:'id',name:"Id"},
-         {id:"name",name:'Name'}
+         {id:'user.id',name:"Id"},
+         {id:"user.name",name:'Name'}
      ]
   },{
-    name:"Service.",
+    name:"Service",
     id:"service",
     child:[
-        {id:'id',name:"Id"},
-        {id:"name",name:'Name'}
+        {id:'service.id',name:"Id"},
+        {id:"service.name",name:'Name'}
+    ]
+  },{
+    name:"Mydb",
+    id:"mydb",
+    child:[
+        {id:'mydb.table',name:"Table"},
+        {id:"mydb.view",name:'View'}
     ]
   }],
   currentTables: [],

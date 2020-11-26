@@ -1,6 +1,6 @@
 <template>
   <div class="cl">
-      <ColumnItem v-for="item in dataList" :id="item.id" :item="item.name" :key="item.id"></ColumnItem>
+      <ColumnItem v-for="item in dataList" :id="item.uid" :alias="item.alias" :name="item.name" :parent-name="item.parentName" :parent-alias="item.parentAlias" :key="item.uid"></ColumnItem>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
      dataList(){
-        return store.SelectedRows || [{id:"null001",name:''}];
+        return store.SelectedRows || [{uid:"null001",name:''}];
      }
   },
   watch: {},

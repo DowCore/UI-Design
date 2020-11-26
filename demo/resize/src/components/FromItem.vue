@@ -1,19 +1,19 @@
 <template>
-  <div class="ti">
-    <div v-show="!!itemValue">
-      <a class="ti-item ti-content" @click="onEditItem">{{ itemValue }}</a>
-      <a class="ti-content ti-alias ti-spacing-col-lg" @click="onEditAlias">{{
-        aliasValue
-      }}</a>
+  <div class="fi">
+    <div v-show="!!name">
+      <a class="fi-item fi-content" @click="onEdifitem">{{ name }}</a>
+      <a class="fi-content fi-alias fi-spacing-col-lg" @click="onEditAlias"
+        >{{ aliasValue }}</a
+      >
     </div>
-    <div class="ti-icon-add ti-spacing-col-lg">
+    <div class="fi-icon-add fi-spacing-col-lg">
       <i class="el-icon-plus" @click="onAddRow"></i>
     </div>
-    <div class="ti-hidden ti-icon-right">
+    <div class="fi-hidden fi-icon-right">
       <i class="el-icon-close" @click="onDelete"></i>
     </div>
     <el-dialog
-      class="ti-alias-dialog"
+      class="fi-alias-dialog"
       :visible="aliasEditorVisible"
       width="360px"
       height="50px"
@@ -27,7 +27,7 @@
       ></el-input>
     </el-dialog>
     <el-dialog
-      class="ti-alias-dialog"
+      class="fi-alias-dialog"
       :visible.sync="isOpen"
       width="80%"
       :destroy-on-close="true"
@@ -39,7 +39,6 @@
     >
       <ExpandableList
         :is-expand-all="true"
-        :checked-item="itemValue"
         :item-datas="itemData"
         @on-select="onSelect"
       >
@@ -49,24 +48,17 @@
 </template>
 <script>
 import ExpandableList from "./ExpandableList";
-import { store, mution } from "./SharedModel";
+import { mution} from "./SharedModel";
 export default {
   props: {
     name: {
       type: String,
     },
-    id: {
+    uid: {
       type: String,
       required: true,
     },
     alias: {
-      type: String,
-    },
-    parentName: {
-      type: String,
-      default: "",
-    },
-    parentAlias: {
       type: String,
     },
   },
@@ -75,31 +67,20 @@ export default {
       aliasEditorVisible: false,
       input: "",
       isOpen: false,
-      isAdd: false,
-      itemData: "",
+      isAdd:false,
+      itemData:[]
     };
   },
   computed: {
-    itemValue() {
-      return this.parentName
-        ? `${this.parentAlias || this.parentName}.${this.name}`
-        : "";
-    },
-    aliasValue() {
-      return this.alias ? `(${this.alias})` : "<别名>";
-    },
+    aliasValue(){
+      return this.alias? `(${this.alias})`: '<别名>';
+    }
   },
   components: {
     ExpandableList,
   },
   mounted() {
-    let models = JSON.parse(JSON.stringify(store.SelectedTables));
-    let result = [];
-    models.forEach((t) => {
-      t.isExpand = true;
-      result.push(t);
-    });
-    this.itemData = result;
+   
   },
   methods: {
     onEditAlias() {
@@ -108,25 +89,26 @@ export default {
     },
     onEnterKeyUp() {
       this.aliasEditorVisible = false;
-      mution.UpdateRowAlias(this.id, this.input);
+      mution.UpdateTableAlias(this.uid, this.input);
     },
     onAliasInputBlur() {
-      this.aliasEditorVisible = false;
+       this.aliasEditorVisible = false;
     },
     onDelete() {
-      mution.DeleteRow(this.id);
+      mution.DeleteRow(this.uid);
     },
-    onEditItem() {
+    onEdifitem() {
       this.isOpen = true;
     },
-    onAddRow() {
-      this.isAdd = true;
+    onAddRow(){
+      this.isAdd=true;
       this.isOpen = true;
     },
     onSelect(val) {
-      if (this.isAdd) {
-        mution.AddRowByNode(val.parentId, val.node);
-      } else {
+      if(this.isAdd){
+        mution.AddRowByNode(val.parenfid,val.node);
+      }
+      else{
         //
       }
       this.isOpen = false;
@@ -135,11 +117,11 @@ export default {
 };
 </script>
 <style lang="scss">
-.ti {
+.fi {
   display: flex;
   &:hover {
     background-color: #2b85e4;
-    .ti-icon-right {
+    .fi-icon-right {
       display: block;
       color: #fff;
     }

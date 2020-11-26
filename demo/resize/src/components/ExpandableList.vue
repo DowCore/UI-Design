@@ -77,7 +77,8 @@ export default {
       type: Array,
       validator: function (t) {
         return (
-          !t || t.length==0 || 
+          !t ||
+          t.length == 0 ||
           (Object.keys(t[0]).indexOf("id") > -1 &&
             Object.keys(t[0]).indexOf("name") > -1)
         );
@@ -129,7 +130,7 @@ export default {
       });
       if (findIndex > -1) {
         this.$set(this.virtualTree[findIndex].node, "isChecked", true);
-        this.$emit("on-select", { ...item });
+        this.$emit("on-select", this.virtualTree[findIndex]);
       }
     },
     bulidVirtualTree() {
@@ -138,19 +139,15 @@ export default {
         this.virtualTree.push({ id: t.id, node: t });
         if (t.child && t.child.length > 0) {
           t.child.forEach((s) => {
-            this.virtualTree.push({ id: s.id, parentId: t.id, node: s });
+            this.virtualTree.push({ id: s.id, parentId: t.uid, node: s });
           });
         }
       });
     },
     initExpand() {
-      if (this.isExpandAll) {
+      if (!this.isExpandAll) {
         this.itemDatas.forEach((t) => {
-          this.$set(t, "isExpand", true);
-        });
-      } else {
-        this.itemDatas.forEach((t) => {
-          this.$set(t, "isExpand", false);
+           t.isExpand=false;
         });
         if (this.expandIds) {
           if (Array.isArray(this.expandIds)) {
@@ -223,6 +220,7 @@ export default {
     }
     &-expand {
       width: 1.6rem;
+      cursor: pointer;
     }
     &-main-right {
       margin-left: auto;

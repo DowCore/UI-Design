@@ -8,33 +8,34 @@
         v-model="input"
         ref="edit_input"
         @blur="onBlur"
-        placeholder="请输入内容"
+        placeholder="编辑别名"
       ></el-input>
     </div>
   </div>
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
 export default {
   name: "EditorHeader",
   props: {
-    headerName: {
+    name: {
       type: String,
-      default: "table",
+      required: true,
     },
+    alias:{
+       type: String
+    }
   },
   data() {
     return {
       isEdit: false,
       clickTimes: 0,
       timer: "",
-      input: "",
-      displayName: "",
+      input:''
     };
   },
   mounted() {
-    this.displayName = this.headerName;
+    
   },
   beforeDestroy() {
     /*
@@ -46,21 +47,15 @@ export default {
     this.timer = null;
   },
   computed:{
-     debounceChange(){
-       return debounce(this.changeValue,300);
-     }
+    displayName(){
+      return !this.alias ?  this.name: `${this.name}(${this.alias})`;
+    }
   },
   watch: {
     isEdit(val) {
-      if (val) {
-        this.input = this.displayName;
-      } else {
-        this.displayName = this.input || this.headerName;
-        this.$emit("header-change", this.displayName);
+      if(!val){
+       this.$emit("change-alias", this.input);
       }
-    },
-    input(val){
-      this.debounceChange(val);
     }
   },
   methods: {
@@ -74,6 +69,7 @@ export default {
         this.isEdit = true;
         //立即获得焦点
         this.$nextTick(() => {
+          this.input= this.alias;
           this.$refs.edit_input.focus();
         });
       }
@@ -85,14 +81,6 @@ export default {
     },
     onBlur() {
       this.isEdit = false;
-    },
-    commitValue:debounce(function(val){
-      console.log("防抖");
-      this.$emit("on-change",val);
-    },300),
-    changeValue(val){
-      console.log("属性防抖");
-      this.$emit("on-change",val);
     }
   },
 };
