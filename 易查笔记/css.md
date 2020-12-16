@@ -1,3 +1,5 @@
+# 知识点
+```json
 {
    position:{
      static:"默认值,没有定位，元素出现在正常的流中(忽略top,bottom,left,right或者z-index声明)",
@@ -125,3 +127,156 @@
      }
    }
 }
+```
+# css继承
+
+ css的继承：就是给父级设置一些属性，子级继承了父级的该属性。
+
+ ## 无继承性的属性
+  * dispaly：规定元素应该生成的框的类型
+  * 文本属性  
+     * vertical-align：垂直文本对齐
+     * text-decoration：规定添加到文本的装饰
+     * text-shadow：文本阴影效果
+     * white-space：空白符的处理
+     * unicode-bidi：设置文本的方向
+   * 盒子模型的属性
+     * width
+     * height
+     * margin
+     * maigin-top
+     * margin-right
+     * margin-bottom
+     * margin-left
+     * border
+     * border-style
+     * boder-top-style
+     * boder-right-style
+     * boder-bottom-style
+     * boder-left-style
+     * boder-width
+     * boder-top-width
+     * boder-right-width
+     * boder-bottom-width
+     * boder-left-width
+     * boder-color
+     * boder-top-color
+     * boder-right-color
+     * boder-bottom-color
+     * boder-left-color
+     * boder-top
+     * boder-right
+     * boder-bottom
+     * boder-left
+     * padding
+     * padding-top
+     * padding-right
+     * padding-bottom
+     * padding-left
+   * 背景属性
+     * background
+     * background-color
+     * background-image
+     * background-repeat
+     * backgroud-position
+     * background-attachment
+   * 定位属性
+     * float
+     * clear
+     * position
+     * top
+     * right
+     * bottom
+     * left
+     * min-width
+     * min-height
+     * max-width
+     * max-height
+     * overflow
+     * clip
+     * z-index
+   * 生成内容属性
+     * content
+     * counter-reset
+     * counter-increment
+   * 轮廓样式
+     * outline-style
+     * outline-width
+     * outline-color
+     * outline
+   * 页面样式属性
+     * size
+     * page-break-before
+     * page-break-after
+   * 声音样式属性
+     * pause-before
+     * paause-after
+     * puse
+     * cue-before
+     * cue-after
+     * cue
+     * play-during
+## 有继承性的属性
+ * 字体系列属性
+   * font
+   * font-family
+   * font-weight
+   * font-size
+   * font-style
+   * font-variant
+   * font-stretch
+   * font-size-adjust
+ * 文本系列属性
+   * text-indent
+   * text-align
+   * line-height
+   * word-spacing
+   * letter-spacing
+   * text-transform
+   * direction
+   * color
+ * 元素可见性
+   * visibility
+ * 表格布局属性
+   * caption-side
+   * border-collapse
+   * border-spacing
+   * empty-cells
+   * table-layout
+ * 列表布局属性
+   * list-style-type
+   * list-style-image
+   * list-style-position
+   * list-style
+ * 生成内容属性
+   * quotes
+ * 光标属性
+   * cursor
+ * 页面样式属性
+   * page
+   * pge-break-inside
+   * windows
+   * orphans
+ * 声音样式属性
+   * speak
+   * speak-punctuation
+   * speak-numeral
+   * speak-header
+   * speech-rate
+   * volume
+   * voice-family
+   * pitch
+   * pitch-range
+   * stress
+   * richness
+   * azimuth
+   * elevation
+ * 所有元素可继承的属性
+   * visibility
+   * cursor
+ * 内联元素
+   * 字体系列属性
+   * 除text-indent、text-align之外的文本系列属性
+ * 块级元素
+   * text-indent、text-align
+   
