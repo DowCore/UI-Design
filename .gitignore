@@ -1,2 +1,3 @@
 *.lock
 /demo/resize/node_modules
+/dow-blog/node_modules
