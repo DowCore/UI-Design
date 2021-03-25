@@ -37,3 +37,8 @@ this.$nextTick(()=>{});
    ```
 # 8. v-once
 *只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。*
+
+# 9. solt
+ 使用#solts获取具体的组件中的内容
+#  10  provide & inject
+provide就相当于加强版父组件prop，可以跨越中间组件，inject就相当于加强版子组件的props
