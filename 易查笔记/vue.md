@@ -26,5 +26,14 @@ this.$nextTick(()=>{});
 # 6. v-pre
 *跳过这个元素和它的子元素的编译过程。可以用来显示原始Mustache标签。加快编译*
 # 7. v-model
+ * sync  
+   使用sync后可以对prop进行修改，即 $emit('update:prop',value),
+   ```js
+     <comp :foo.sync="bar"></comp>
+     // 等同
+     <comp :foo="bar" @update:foo="val => bar = val"></comp>
+     // 使用
+    this.$emit('update:foo', newValue)
+   ```
 # 8. v-once
 *只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。*
